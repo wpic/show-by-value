@@ -16,7 +16,13 @@ Simple jquery plugin to show and hide inputs in the form by value of the other i
                         var parts = list[l].split('=');
 
                         var selector = "[name='" + parts[0] + "']";
-                        if ($(selector, form).val() === parts[1]) {
+                        if (parts.length > 1) {
+                            if ($(selector, form).val() === parts[1]) {
+                                $(this).show();
+                                return;
+                            }
+                        }
+                        else if ($(selector, form).val()) {
                             $(this).show();
                             return;
                         }
@@ -48,6 +54,11 @@ Simple jquery plugin to show and hide inputs in the form by value of the other i
     <input data-show-by-value="mode=first" value="This is the first one" />
     <input data-show-by-value="mode=secound" value="This is the second one" />
     <input data-show-by-value="mode=first,mode=secound" value="One or two" />
+
+    <br/>
+    <input name="typing" type="text" value="clear to hide other one" />
+    <input data-show-by-value="typing=" type="text" value="it's empty" />
+    <input data-show-by-value="typing" type="text" value="it's not empty" />
 </form>
 
 <script>
